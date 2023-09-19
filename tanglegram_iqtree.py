@@ -8,14 +8,16 @@ from dendropy.calculate import treecompare
 import numpy as np
 import os
 
+import utils
+
 # load the trees
 # run_id = "8"
-for ds in range(1, 9):
+for ds in range(1, 2):
     path1 = f"/Users/151569/Projects/Dodonaphy/dodo-experiments/analysis/ds{ds}/iqtree_GTR/DS.treefile"
-    dir2 = f"/Users/151569/Projects/Dodonaphy/dodo-experiments/analysis/ds{ds}/hmap/nj/None/lr2_tau5_bionj2000_k2_d3/"
+    dir2 = f"/Users/151569/Projects/Dodonaphy/dodo-experiments/analysis/ds{ds}/hmap/nj/None/bionj/lr2_tau5_n2000_k2_d3/"
 
     path2 = os.path.join(dir2, "mape.t")
-    path_save = os.path.join(dir2, "tanglegram")
+    # path_save = os.path.join(dir2, "tangelgram"))
 
     label1 = "IQ-TREE"
     label2 = "Dodonaphy"
@@ -62,9 +64,10 @@ for ds in range(1, 9):
     #     xy=(0.4, 0.94),
     #     xycoords='figure fraction')
 
+    path_save = os.path.join(".", "out", "tanglegram")
+    utils.savefig_bioinformatics(path_save)
 
-    plt.savefig(path_save)
     print(f"RF dist = {treecompare.symmetric_difference(tree1, tree2)}")
     print(f"wRF dist = {treecompare.weighted_robinson_foulds_distance(tree1, tree2)}")
-    # plt.show()
+    plt.show()
 

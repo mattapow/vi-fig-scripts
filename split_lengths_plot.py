@@ -4,6 +4,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 
+import utils
+
 # Step 1: Read the data from the CSV file into a pandas DataFrame
 df = pd.read_csv('tmp/branch_lengths_by_treelist_sorted.csv')
 
@@ -57,10 +59,8 @@ handles = [
 plt.xlabel('Edge Lengths MrBayes')
 plt.ylabel('Edge Lengths Dodonaphy')
 plt.legend()
-# plt.grid(True)
 # plt.tight_layout()
 
-# path_save = os.path.join(".", "out", "split_lengths2.pdf")
-# plt.savefig(path_save, format="pdf")
-
+path_save = os.path.join(".", "out", "split_lengths")
+utils.savefig_bioinformatics(path_save)
 plt.show()

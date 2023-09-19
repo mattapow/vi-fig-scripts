@@ -70,9 +70,9 @@ def compute_marginal_for_files(filenames):
 
 def plot_over_booots():
     # plot the estimated marginal for different number of boosts
-    directory = os.path.join("..", "analysis", "ds1", "vi", "up_nj", "")
+    directory = os.path.join("..", "..", "dodo-experiments", "analysis", "ds1", "vi", "up_nj", "")
     max_n = 10
-    filenames = [os.path.join(directory, f"d3_lr1_i3_b{i}_jc69_exp_con/samples.t") for i in range(1,max_n+1)]
+    filenames = [os.path.join(directory, f"d3_lr1_i1_b{i}_jc69_boosts/samples.t") for i in range(1,max_n+1)]
     boost_numbers = list(range(1, max_n+1))
     marginal_values = compute_marginal_for_files(filenames)
 
@@ -88,17 +88,15 @@ def plot_over_booots():
     plt.ylabel('Estimated Marginal Probability')
     plt.show()
 
-    # path_save = os.path.join(".", "out", "boosts_marginal_exp_jc69_n500.pdf")
-    # plt.savefig(path_save, format="pdf")
-
 
 def print_over_ds():
     # print the estimated marginal for different data sets
-    directory = os.path.join("..", "analysis")
-    filenames = [os.path.join(directory, f"ds{i}", "vi", "up_nj", "d3_lr1_i1_b1_jc69_exp_ds8", "samples.t") for i in range(1, 9)]
+    directory = os.path.join("..", "..", "dodo-experiments", "analysis")
+    filenames = [os.path.join(directory, f"ds{i}", "vi", "up_nj", "d3_lr1_i1_b1_jc69_exp_iq_cv100", "samples.t") for i in range(1, 9)]
     marginal_values = compute_marginal_for_files(filenames)
     for (i, marginal) in enumerate(marginal_values):
         print(f"DS{i+1}: -> marginal: {marginal}")
 
 if __name__ == "__main__":
     print_over_ds()
+    # plot_over_booots()

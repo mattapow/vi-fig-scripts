@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import StrMethodFormatter
 import numpy as np
 
+import utils
+
 # Data from the table
 datasets = ['DS1', 'DS2', 'DS3', 'DS4', 'DS5', 'DS6', 'DS7', 'DS8']
 column_labels = ['RAxML', 'IQ-TREE', 'Dodonaphy+', 'Dodonaphy', 'BioNJ']
@@ -52,6 +54,6 @@ ax.yaxis.set_major_formatter(StrMethodFormatter('{x:.0f}'))
 ax.tick_params(axis='both', which='major', labelsize=12)
 plt.tight_layout()
 
-path_save = os.path.join(".", "out", "ml_performance.pdf")
-plt.savefig(path_save, format="pdf")
+path_save = os.path.join(".", "out", "ml_performance")
+utils.savefig_bioinformatics(path_save)
 plt.show()

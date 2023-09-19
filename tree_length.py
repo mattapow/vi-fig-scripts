@@ -7,26 +7,27 @@ import dendropy
 import seaborn as sns
 import numpy as np
 
+import utils
 
 ds = 1
 dim = 3
 ln_crv = 0
 burnin = 1
 embed = "up"
-ds_path = os.path.join("..", "analysis", f"ds{ds}")
+ds_path = os.path.join("..", "..", "dodo-experiments", "analysis", f"ds{ds}")
 max_mix = 1
-trials = [f"d20_lr1_i1_b2_d20_b2_k5_iqtree_GTR" for i in range(1, max_mix+1)]
+trials = [f"boosts_gtr/d3_lr1_i3_b1_boosts" for i in range(1, max_mix+1)]
 
 exp_path = os.path.join(ds_path, "vi", "up_nj")
 dodo_paths = [os.path.join(exp_path, f"{trial}", "samples.t") for trial in trials]
 
 # Plot
-fig, ax = plt.subplots(1, 1)
-fig.set_size_inches(6, 4)
-ax.set_position([0.1, 0.11, 0.83, 0.88])
-ax.set_xlabel("Tree length")
-ax.set_xlim(0.28, 0.62)
-ax.annotate("A", (0.05, 0.85), xycoords="figure fraction", fontsize="18")
+fig = plt.figure(figsize=(4, 4))
+fig.gca().set_position([0.19, 0.11, 0.80, 0.88])
+
+fig.gca().set_xlabel("Tree length")
+fig.gca().set_xlim(0.28, 0.62)
+# fig.gca().annotate("A", (0.05, 0.85), xycoords="figure fraction", fontsize="18")
 color_map = cm.get_cmap('viridis', max_mix)
 lineStyles = [":", "-", "--", "-.", ":", "-", "--", "-.", ":"]
 
@@ -38,14 +39,14 @@ for i in range(1, 3):
     mb_tree_lengths.append([tree.length() for tree in mb_trees])
 sns.kdeplot(
     mb_tree_lengths[0][burnin:],
-    ax=ax,
+    ax=fig.gca(),
     color="k",
     linestyle="-",
     label=f"MrBayes run {1}",
     linewidth=2,
 )
 print(len(mb_tree_lengths))
-sns.kdeplot(mb_tree_lengths[1][burnin:], ax=ax, color='k', linestyle='-', label=f"MrBayes run {2}")
+sns.kdeplot(mb_tree_lengths[1][burnin:], ax=fig.gca(), color='k', linestyle='-', label=f"MrBayes run {2}")
 
 # Extract Dodonaphy tree lengths
 for i, dodo_path in enumerate(dodo_paths):
@@ -54,7 +55,7 @@ for i, dodo_path in enumerate(dodo_paths):
     dodo_tree_lengths = [tree.length() for tree in trees]
     sns.kdeplot(
         dodo_tree_lengths[burnin:],
-        ax=ax,
+        ax=fig.gca(),
         color="b",
         linestyle=lineStyles[i],
         label=f"M={i+1}",
@@ -67,5 +68,5 @@ print(np.var(dodo_tree_lengths[burnin:]))
 print(np.var(mb_tree_lengths[0][burnin:]))
 
 # save the figure
-plt.savefig(f"tree_length.eps", format="eps", dpi=600)
-plt.show()
+path_save = os.path.join(".", "out", "tree_length")
+utils.savefig_bioinformatics(path_save)
