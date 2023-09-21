@@ -22,8 +22,8 @@ exp_path = os.path.join(ds_path, "vi", "up_nj")
 dodo_paths = [os.path.join(exp_path, f"{trial}", "samples.t") for trial in trials]
 
 # Plot
-fig = plt.figure(figsize=(4, 4))
-fig.gca().set_position([0.19, 0.11, 0.80, 0.88])
+fig = plt.figure(figsize=(4, 3))
+fig.gca().set_position([0.19, 0.15, 0.80, 0.84])
 
 fig.gca().set_xlabel("Tree length")
 fig.gca().set_xlim(0.28, 0.62)
@@ -58,7 +58,7 @@ for i, dodo_path in enumerate(dodo_paths):
         ax=fig.gca(),
         color="b",
         linestyle=lineStyles[i],
-        label=f"M={i+1}",
+        label="Dodonaphy",
     )
 
 plt.legend()
